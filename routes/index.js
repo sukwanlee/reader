@@ -112,6 +112,53 @@ var getPostsHackerNews = function(callback) {
             res.status(500).send('Something went wrong while getting the cache value for hacker news');
         }
     });
+
+		var hnUrl = 'http://api.ihackernews.com/page';
+
+		listCache.get('hacker-news', function(err, posts) {
+			if (!err && posts.length > 0) {
+				// if cache is not empty, execute callback using the cached posts
+				callback(posts);
+			} else if (!err) {
+				// if cache is empty, request for a new list of posts, store them in db if doesn't already exist
+				request({
+					url: hnUrl,
+					json: true
+				}, function(err, res, body) {
+					if (err) {
+						res.status(500).send('Internal Error!');
+						return {};
+					}
+					var posts = res.body.items,
+							i;
+
+					for (i = 0; i < posts.length; i++) {
+						Post.findOne({
+							'title': posts[i].title,
+							'url': posts[i].url
+						}, function(err, result) {
+							if (err) {
+								console.log(err);
+							} else {
+								new Post({
+									title: result.title,
+									url: result.url,
+									website: 'hacker-news',
+									slug: result.title.replace(/ /g, '-').trim().toLowerCase()
+								}).save(function(err) {
+									if(err) {
+										console.log(err);
+									}
+								});
+							}
+						});
+					}
+					callback(posts);
+				});
+			} else {
+				res.status(500).send('Something went wrong while getting the cache value for hacker news');
+			}
+		});
 };
 
 var getPostsTheVerge = function() {
