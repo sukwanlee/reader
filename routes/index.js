@@ -92,12 +92,12 @@ var getPostsHackerNews = function(callback) {
 						if (err) {
 							console.log(err);
 						}
-						if (!result) {
+						if (result) {
 							new Post({
-								title: posts[i].title,
-								url: posts[i].url,
+								title: result.title,
+								url: result.url,
 								website: 'hacker-news',
-								slug: posts[i].title.replace(/ /g, '-').trim().toLowerCase()
+								slug: result.title.replace(/ /g, '-').trim().toLowerCase()
 							}).save(function(err) {
 								if(err) {
 									console.log(err);
