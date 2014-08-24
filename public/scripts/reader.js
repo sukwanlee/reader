@@ -68,6 +68,7 @@ var Reader = {
             req.done(function(res) {
                 $("body").hide().html(res).fadeIn(200);
                 Reader._updateHistory("Hacker News", "/hn");
+                window.scrollTo(0, 0);
             });
 
             req.fail(function(res) {
@@ -96,6 +97,7 @@ var Reader = {
                 imgs.attr("data-src", imgs.attr("src")).attr("src", "").hide();
                 $("body").fadeIn(200);
                 Reader._updateHistory(title, url);
+                window.scrollTo(0, 0);
             });
 
             req.fail(function(res) {
