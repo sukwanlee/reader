@@ -3,5 +3,5 @@ extends list
 block list-item
 	div
 		p.list-item-link
-			a(href="hn/#{post.id}", data-src="#{post.url}") #{post.title}
-		p.list-item-meta Posted by <a href="https://news.ycombinator.com/user?id=#{post.postedBy}">#{post.postedBy}</a>
+			a(href="/hn/#{post.slug}", data-src="#{post.url}") #{post.title}
+		p.list-item-meta #{post.points} points by <a href="https://news.ycombinator.com/user?id=#{post.postedBy}">#{post.postedBy}</a>
