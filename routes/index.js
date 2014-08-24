@@ -64,8 +64,8 @@ router.get('/api/:siteSlug/:postSlug', function(req, res) {
 });
 
 /* GET post */
-router.get('/:siteSlug/:postSlug', function(req, res) {
-    getPostContent(req.params.siteSlug, req.params.postSlug, function(post) {
+router.get('/:siteSlug/:postTitle', function(req, res) {
+    getPostContent(req.params.siteSlug, req.params.postTitle, function(post) {
         res.render('detail', {
             post: post
         });
