@@ -1,7 +1,9 @@
 extends layout
 
+block nav
+	span(data-nav="home") #{title}
+
 block content
-	h1 #{title}
 	ul
 		each post in posts
 			li.list-item

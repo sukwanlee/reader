@@ -11,7 +11,8 @@
 
 body {
   font-family: @sans-serif;
-  padding: 10px;
+  background-color: white;
+  margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -62,6 +63,23 @@ blockquote {
 	text-align: right;
 }
 
+.nav {
+	width: 100%;
+	opacity: 80%;
+	padding: 6px 0px;
+	background-color: @black;
+	color: white;
+	font-size: 1.2em;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.container {
+	padding: 10px;
+	padding-top: 0px;
+}
+
 .site-item {
 	padding: 10px 0px;	
 }
@@ -86,6 +104,7 @@ blockquote {
 .detail-title {
 	font-size: 1.8em;
 	margin-bottom: 10px;
+	margin-top: 15px;
 	line-height: 1.2em;
 }
 
@@ -103,7 +122,7 @@ blockquote {
 .detail-content {
 	padding-bottom: 45px;
 	img, video, figure {
-		width: 100%;
+		max-width: 100%;
 		margin-left: 0px;
 		margin-right: 0px;
 		padding-top: 15px;
@@ -121,6 +140,9 @@ blockquote {
 	}
 	pre {
 		width: 100%;
+	}
+	li {
+		list-style-type: disc;
 	}
 }
 
