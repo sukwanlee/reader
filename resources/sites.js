@@ -8,7 +8,7 @@ var sites = {
 		"readerUrl": "/theverge",
 		"id": 1
 	},
-	"hacker-news": {
+	"hn": {
 		"title": "Hacker News",
 		"slug": "hacker-news"		,
 		"url": "https://news.ycombinator.com",

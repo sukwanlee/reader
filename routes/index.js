@@ -1,6 +1,7 @@
 var express = require('express'),
     sites = require('../resources/sites'),
-    getPosts = require('../lib/lists');
+    getPosts = require('../lib/lists'),
+    getPostContent = require('../lib/post');
 
 var router = express.Router();
 
@@ -18,7 +19,7 @@ router.get('/:slug', function(req, res) {
     var posts;
 
     if (req.params.slug === 'hn') {
-        getPosts('http://api.ihackernews.com/page', 'hacker-news', function(posts) {
+        getPosts('http://api.ihackernews.com/page', req.params.slug, function(posts) {
             res.render('list', {
                 posts: posts,
                 title: 'Hacker News',
@@ -26,7 +27,7 @@ router.get('/:slug', function(req, res) {
             return;
         });
     } else if (req.params.slug === 'theverge') {
-        getPosts('http://theverge.com/', 'the-verge', function(posts) {
+        getPosts('http://theverge.com/', req.params.slug, function(posts) {
         	res.render('list', {
         		posts: posts,
         		title: 'The Verge'
@@ -35,7 +36,15 @@ router.get('/:slug', function(req, res) {
     } else {
         res.status(404).send('That page is not yet supported :(');
     }
-    
+});
+
+router.get('/:slug/:postTitle', function(req, res) {
+	console.log(req.params.slug, req.params.postTitle);
+	getPostContent(req.params.slug, req.params.postTitle, function(post) {
+		res.render('detail', {
+			post: post
+		});
+	});
 });
 
 /* GET site posts list in JSON format  */
