@@ -1,11 +1,20 @@
-@sans-serif:"Helvetica Neue", Helvetica, Arial, sans-serif;
+/* Fonts */
+@sans-serif: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 @serif: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, Georgia, "Times New Roman", serif;
+
+/* Colors */
+@black: #222;
+@gray: #666;
+@light-gray: #ddd;
+@blue: #2E5894;
+@light-blue: #2E5894 + #555;
 
 body {
   font-family: @sans-serif;
+  padding: 10px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
 	margin: 0;
 }
 
@@ -29,6 +38,10 @@ li {
 }
 
 a {
+	color: @blue;
+	&:visited {
+		color: @light-blue;
+	}
 }
 
 .center-align {
@@ -43,7 +56,6 @@ a {
 	text-align: right;
 }
 
-
 .site-item {
 	padding: 10px 0px;	
 }
@@ -51,3 +63,17 @@ a {
 .list-item {
 	padding: 3px 0px;
 }
+
+.list-item-link {
+	margin-bottom: 2px;
+	font-size: 1.1em;
+}
+
+.list-item-meta {
+	font-size: 0.8em;
+	color: @gray;
+	a {
+		color: @gray;
+	}
+}
+

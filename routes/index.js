@@ -19,7 +19,7 @@ router.get('/:slug', function(req, res) {
 
     if (req.params.slug === 'hn') {
         getPosts('http://api.ihackernews.com/page', 'hacker-news', function(posts) {
-            res.render('list', {
+            res.render('hnList', {
                 posts: posts,
                 title: 'Hacker News',
             });

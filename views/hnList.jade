@@ -1,0 +1,7 @@
+extends list
+
+block list-item
+	div
+		p.list-item-link
+			a(href="##{post.url}", data-src="#{post.url}") #{post.title}
+		p.list-item-meta #{post.points} points by <a href="https://news.ycombinator.com/user?id=#{post.postedBy}">#{post.postedBy}</a>

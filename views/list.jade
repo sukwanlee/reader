@@ -1,8 +1,8 @@
 extends layout
 
 block content
-	h1 List of #{title}
+	h1 #{title}
 	ul
 		each post in posts
 			li.list-item
-				a(href="#", data-src="#{post.url}") #{post.title}
+				block list-item
