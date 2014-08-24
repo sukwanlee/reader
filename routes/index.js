@@ -1,6 +1,6 @@
 var express = require('express'),
     sites = require('../resources/sites'),
-    getPosts = require('../lib/lists'),
+    getPosts = require('../lib/list'),
     getPostContent = require('../lib/post');
 
 var router = express.Router();
@@ -56,12 +56,16 @@ router.get('/api/:siteSlug', function(req, res) {
     }
 });
 
-router.get('/api/:siteSlug')
+router.get('/api/:siteSlug/:postSlug', function(req, res) {
+    getPostContent(req.params.siteSlug, req.params.postSlug, function(post) {
+        res.json(post);
+        return;
+    });
+});
 
 /* GET post */
-router.get('/:siteSlug/:postTitle', function(req, res) {
-    console.log(req.params.siteSlug, req.params.postTitle);
-    getPostContent(req.params.siteSlug, req.params.postTitle, function(post) {
+router.get('/:siteSlug/:postSlug', function(req, res) {
+    getPostContent(req.params.siteSlug, req.params.postSlug, function(post) {
         res.render('detail', {
             post: post
         });
