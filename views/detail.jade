@@ -1,6 +1,9 @@
 extends layout
 
 block content
-	h1 #{post.title}
-	a(href="#{post.url}") Original Article
-	div!= post.content
+	h1.detail-title #{post.title}
+	p.detail-original-link
+		a(href="#{post.url}")
+			| Original Article link: #{post.url}
+	hr.detail-divider
+	div.detail-content!= post.content
