@@ -59,7 +59,6 @@ router.get('/api/:slug', function(req, res) {
 
 /* GET post */
 router.get('/:slug/:postTitle', function(req, res) {
-    console.log(req.params.slug, req.params.postTitle);
     getPostContent(req.params.slug, req.params.postTitle, function(post) {
         res.render('detail', {
             post: post
