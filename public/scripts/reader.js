@@ -11,6 +11,7 @@ var Reader = {
     setUpBindings: function() {
 
         $(".site-item-link").click(Reader.home.clickSiteHandler);
+        $(".list-item-link a").click(Reader.list.clickPostHandler);
 
     },
 
@@ -41,45 +42,39 @@ var Reader = {
             });
 
             req.fail(function(res) {
+                alert('Fail');
+                console.log(res);
+            });
+        }
+    },
+
+    list: {
+        clickPostHandler: function(e) {
+            Reader.list.getPost(
+                $(this).attr('href'),
+                $(this).text());
+            e.preventDefault();
+            return false;
+        },
+
+        getPost: function(url, title) {
+            var req = Reader._get(url);
+
+            req.done(function(res) {
+                $('body').html(res);
+                Reader._updateHistory(title, url);
+            });
+
+            req.fail(function(res) {
+                alert('Fail');
                 console.log(res);
             });
         },
     },
 
-    list: {
-    },
-
     detail: {
     },
 
-    // get: {
-
-
-
-    //     hn: function() {
-
-    //         var url = "hn",
-    //             data: {};
-
-    //         var request = this.get(url, data);
-
-    //         request.done(function(res) {
-    //             console.log(res);
-    //         });
-
-    //         request.fail(function(error) {
-    //             console.log(error);
-    //         });
-
-    //     },
-
-    //     theVerge: function() {
-
-    //     }
-
-    // },
-
-   
 };
 
 $(document).ready(function() {
