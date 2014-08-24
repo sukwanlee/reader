@@ -15,19 +15,19 @@ router.get('/', function(req, res) {
 
 
 /* GET post list */
-router.get('/:slug', function(req, res) {
+router.get('/:siteSlug', function(req, res) {
     var posts;
 
-    if (req.params.slug === 'hn') {
-        getPosts('http://api.ihackernews.com/page', req.params.slug, function(posts) {
+    if (req.params.siteSlug === 'hn') {
+        getPosts('http://api.ihackernews.com/page', req.params.siteSlug, function(posts) {
             res.render('hnList', {
                 posts: posts,
                 title: 'Hacker News',
             });
             return;
         });
-    } else if (req.params.slug === 'theverge') {
-        getPosts('http://theverge.com/', req.params.slug, function(posts) {
+    } else if (req.params.siteSlug === 'theverge') {
+        getPosts('http://theverge.com/', req.params.siteSlug, function(posts) {
         	res.render('list', {
         		posts: posts,
         		title: 'The Verge'
@@ -39,28 +39,29 @@ router.get('/:slug', function(req, res) {
 });
 
 /* GET site posts list in JSON format  */
-router.get('/api/:slug', function(req, res) {
+router.get('/api/:siteSlug', function(req, res) {
 
-    if (req.params.slug === 'hn') {
-        getPosts('http://api.ihackernews.com/page', req.params.slug, function(posts) {
+    if (req.params.siteSlug === 'hn') {
+        getPosts('http://api.ihackernews.com/page', req.params.siteSlug, function(posts) {
             res.json(posts);
             return;
         });
-    } else if (req.params.slug === 'theverge') {
-        getPosts('http://theverge.com/', req.params.slug, function(posts) {
+    } else if (req.params.siteSlug === 'theverge') {
+        getPosts('http://theverge.com/', req.params.siteSlug, function(posts) {
             res.json(posts);
             return;
         });
     } else {
         res.jsonp(404, { error: "No posts available. Wrong API Endpoint."});
     }
-
 });
 
+router.get('/api/:siteSlug')
+
 /* GET post */
-router.get('/:slug/:postTitle', function(req, res) {
-    console.log(req.params.slug, req.params.postTitle);
-    getPostContent(req.params.slug, req.params.postTitle, function(post) {
+router.get('/:siteSlug/:postTitle', function(req, res) {
+    console.log(req.params.siteSlug, req.params.postTitle);
+    getPostContent(req.params.siteSlug, req.params.postTitle, function(post) {
         res.render('detail', {
             post: post
         });
