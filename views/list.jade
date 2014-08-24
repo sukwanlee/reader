@@ -4,5 +4,5 @@ block content
 	h1 List of #{title}
 	ul
 		each post in posts
-			li
+			li.list-item
 				a(href="#", data-src="#{post.url}") #{post.title}

@@ -1,15 +1,12 @@
 var express = require('express'),
     sites = require('../resources/sites'),
-    listHelper = require('../lib/lists');
+    getPosts = require('../lib/lists');
 
 var router = express.Router();
 
 
 /* GET home page */
 router.get('/', function(req, res) {
-	listCache.get('hacker-news', function(err, value) {
-		console.log(value);
-	});
     res.render('home', {
         sites: sites
     });
@@ -21,7 +18,7 @@ router.get('/:slug', function(req, res) {
     var posts;
 
     if (req.params.slug === 'hn') {
-        listHelper('http://api.ihackernews.com/page', 'hacker-news', function(posts) {
+        getPosts('http://api.ihackernews.com/page', 'hacker-news', function(posts) {
             res.render('list', {
                 posts: posts,
                 title: 'Hacker News',
@@ -29,7 +26,7 @@ router.get('/:slug', function(req, res) {
             return;
         });
     } else if (req.params.slug === 'theverge') {
-        listHelper('http://theverge.com/', 'the-verge', function(posts) {
+        getPosts('http://theverge.com/', 'the-verge', function(posts) {
         	res.render('list', {
         		posts: posts,
         		title: 'The Verge'
@@ -41,42 +38,24 @@ router.get('/:slug', function(req, res) {
     
 });
 
+/* GET site posts list in JSON format  */
+router.get('/api/:slug', function(req, res) {
 
-
-router.get('/sdf', function(req, res) {
-    request({
-        url: 'http://readability.com/api/content/v1/parser?url=http://gizmodo.com/the-chainsmokers-kanye-1622738472&token=38d99fa737228f98b6e6ccdf236ed1b6fcb2a184',
-        json: true
-    }, function(err, res1, body) {
-        var body = res1.body;
-
-        postCache.set("tempBody", body, function(err, success) {
-            if(!err && success) {
-                console.log("Saved in memory using node-cache.");
-            }
+    if (req.params.slug === 'hn') {
+        getPosts('http://api.ihackernews.com/page', 'hacker-news', function(posts) {
+            res.json(posts);
+            return;
         });
-
-        postCache.get("tempBody", function(err, value) {
-            if(!err) {
-                console.log(value);
-            }
+    } else if (req.params.slug === 'theverge') {
+        getPosts('http://theverge.com/', 'the-verge', function(posts) {
+            res.json(posts);
+            return;
         });
+    } else {
+        res.jsonp(404, { error: "No posts available. Wrong API Endpoint."});
+    }
 
-        setTimeout(function() {
-            postCache.get("tempBody", function(err, value) {
-                console.log(value);
-                console.log("This should be a null");
-            });
-        }, 10000);
 
-        var html = "<html><head><title>" + body.title + "</title></head><body>" + "<h1>" + body.title + "</h1>" + body.content + "</body></html>";
-        res.send(html);
-    });
-    // read('http://gizmodo.com/the-chainsmokers-kanye-1622738472', function(err, article, meta) {
-    //  var html = "<html><head><title>" + article.title + "</title></head><body>" + "<h1>" + article.title + "</h1>" + article.content + "</body></html>";
-    //  res.send(html);
-    //  // res.render('index', { title: 'Express' });
-    // });
 });
 
 module.exports = router;

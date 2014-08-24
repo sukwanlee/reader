@@ -1,9 +1,10 @@
 extends layout
 
 block content
-	h1 Reader
+	h1.center-align Reader
 	ul
 		each site in sites
-			li
-				a(href="#{site.url}") #{site.title}
+			li.site-item.center-align
+				a(href="#", data-url="#{site.readerUrl}").site-item-link
+					h2 #{site.title}
 		

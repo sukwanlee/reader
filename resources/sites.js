@@ -5,12 +5,14 @@ var sites = {
 		"title": "The Verge",
 		"slug": "the-verge",
 		"url": "https://theverge.com",
+		"readerUrl": "/theverge",
 		"id": 1
 	},
 	"hacker-news": {
 		"title": "Hacker News",
 		"slug": "hacker-news"		,
 		"url": "https://news.ycombinator.com",
+		"readerUrl": "/hn",
 		"id": 2
 	}
 }
